@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.example.gaol.HomeMenu;
 import android.example.gaol.R;
 import android.example.gaol.support.callback_login;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class LogIn extends AppCompatActivity {
 
@@ -42,6 +45,20 @@ public class LogIn extends AppCompatActivity {
             public void onClick(View v) {
                 mUname = mUsername.getText().toString();
                 mPass = mPassword.getText().toString();
+
+                //call http API untuk register
+                ArrayList<HashMap<String, String>> reqLogin = RequestTestConn("Test");
+                Log.d("Logchecker",reqLogin.toString());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (Objects.equals(reqLogin.get(0).get("success"), "1")){
+                        Toast.makeText(LogIn.this, "Sukses", Toast.LENGTH_SHORT).show();
+                    } else if (Objects.equals(reqLogin.get(0).get("success"), "-1")){
+                        //koneksi error
+                        Toast.makeText(LogIn.this, reqLogin.get(0).get("message"), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LogIn.this, reqLogin.get(0).get("message"), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
                 if(mUname.isEmpty()) {
                     mUsername.setError("Field cannot be empty");
@@ -87,6 +104,20 @@ public class LogIn extends AppCompatActivity {
 
         return arrayList;
     }
+    private ArrayList<HashMap<String, String>> RequestTestConn(String payload) {
+        ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
 
+        callback_login login_req = new callback_login(LogIn.this);
+        //Log.d("CEKIDBOOK",id_book);
+        try {
+            arrayList = login_req.execute(
+                    payload
+            ).get();
+        }catch (Exception e){
+            Log.d("Error Message",e.getMessage());
+        }
+
+        return arrayList;
+    }
 
 }

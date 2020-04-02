@@ -46,13 +46,18 @@ public class callback_login extends AsyncTask<String, String, ArrayList<HashMap<
 
         Log.d("CEKIDBOOK",params[0]);
         Log.d("CEKIDBOOK",params[1]);
+        Log.d("test : ",params[2]);
+
 
         paramsed.add( new BasicNameValuePair("username", params[0])); //email
-        paramsed.add(           new BasicNameValuePair("password", params[1])); //password
+        paramsed.add( new BasicNameValuePair("password", params[1])); //password
+        paramsed.add(new BasicNameValuePair("test", params[2]));//test
 
 
         System.out.println("params[0] = "+params[0]);
         System.out.println("params[1] = "+params[1]);
+        System.out.println("params[1] = "+params[2]);
+
 
         JSONObject json = jsonParser.makeHttpRequest("http://dev.projectlab.co.id/mit/1417006/mst_login.php",
                 "POST", (List<org.apache.http.NameValuePair>) paramsed);
@@ -88,12 +93,19 @@ public class callback_login extends AsyncTask<String, String, ArrayList<HashMap<
 
                 map.put("success", String.valueOf(success));
                 map.put("message", message);
-
+                arrayListRet.clear();
                 arrayListRet.add(map);
 
             }
-        } catch (JSONException e) {
-            return null;
+        } catch (Exception error) {
+            Log.d("Error Http",error.getMessage());
+            HashMap<String, String> map = new HashMap<String, String>();
+
+            map.put("success", "-1");
+            map.put("message", "Internal Error : Hubungi Customer Service");
+
+            arrayListRet.clear();
+            arrayListRet.add(map);
         }
 
         System.out.println("arrayListRet = "+arrayListRet);

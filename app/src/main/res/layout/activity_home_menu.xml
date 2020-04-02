@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".splash.MainActivity"
-    android:layout_alignParentLeft="true"
-    >
+    android:layout_alignParentLeft="true">
+
+    <include layout="@layout/main_bottom"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
@@ -19,10 +20,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="160dp"
-            android:src="@drawable/text1"/>
+            android:layout_height="wrap_content"
+            android:text="GaoL"
+            android:fontFamily="@drawable"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +51,7 @@
         android:padding="10dp">
         <Button
             android:id="@+id/btn_order"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/menu_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/icon"
@@ -58,7 +60,7 @@
 
         <Button
             android:id="@+id/btn_information"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/menu_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/iconn"
@@ -68,7 +70,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btn_add_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -79,8 +80,8 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/btn_product"
-            android:layout_width="50dp"
+            android:id="@+id/btn_add_user"
+            android:layout_width="@dimen/menu_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/add"
@@ -88,7 +89,8 @@
             android:layout_marginHorizontal="10dp"/>
 
         <Button
-            android:layout_width="50dp"
+            android:id="@+id/btn_product"
+            android:layout_width="@dimen/menu_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/product"
